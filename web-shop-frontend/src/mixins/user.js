@@ -1,5 +1,4 @@
 import ApiService from "../services/Api"
-import { async } from "q"
 
 const userMixin = {
     computed: {
