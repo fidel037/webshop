@@ -1,0 +1,24 @@
+version: '3'
+services:
+  web:
+    build: ./web-shop-frontend
+    ports:
+    - "8888:8080"
+    volumes:
+    - ./web-shop-frontend:/var/www/html/web-shop-frontend
+    links:
+    - api:api
+  api:
+    build: ./web-shop-api
+    ports:
+    - "8800:80"
+    volumes:
+    - ./web-shop-api:/var/www/html/web-shop-api
+    links:
+    - db:db
+  db:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+    - "3333:3306"
