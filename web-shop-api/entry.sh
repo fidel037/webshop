@@ -9,5 +9,5 @@ source ~/.bashrc
 php -r "unlink('composer-setup.php');"
 cd /var/www/html/web-shop-api
 composer install
-php /var/www/html/web-shop-api/artisan migrate
+php /var/www/html/web-shop-api/artisan migrate --force
 tail -f /dev/null
