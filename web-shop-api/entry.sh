@@ -6,7 +6,7 @@ php -r "if (hash_file('sha384', 'composer-setup.php') === 'a5c698ffe4b8e849a443b
 php composer-setup.php --install-dir=/usr/bin --filename=composer
 chmod +x /usr/bin/composer
 source ~/.bashrc
-cd /var/www/html
+cd /var/www/html/web-shop-api
 composer install
 php -r "unlink('composer-setup.php');"
 tail -f /dev/null
