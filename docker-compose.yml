@@ -18,6 +18,8 @@ services:
     - db:db
   db:
     image: mysql
+    volumes:
+        - ./init.sql:/data/application/init.sql
     environment:
       MYSQL_ROOT_USER: root
       MYSQL_ROOT_PASSWORD: root
