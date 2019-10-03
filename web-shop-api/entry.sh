@@ -9,6 +9,5 @@ source ~/.bashrc
 php -r "unlink('composer-setup.php');"
 cd /var/www/html/web-shop-api
 composer install
-echo "create database `webshop`" | mysql -h mysql -uroot -proot
 php /var/www/html/web-shop-api/artisan migrate --force
 tail -f /dev/null
