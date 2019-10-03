@@ -19,9 +19,8 @@ services:
   db:
     image: mysql
     volumes:
-        - ./init.sql:/data/application/init.sql
+        - mysql-db:/var/lib/mysql
     environment:
-      MYSQL_ROOT_USER: root
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: webshop
     ports:
