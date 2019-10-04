@@ -2,7 +2,7 @@
     <div class="row">
         <div class="row">
         <div class="card col-3 mt-2" v-for="(item, index) in loadedItems.data" v-bind:key="index">
-                <img src="https://image.shutterstock.com/z/stock-vector-no-image-available-icon-template-for-no-image-or-picture-coming-soon-vector-illustration-isolated-1036735678.jpg" class="card-img-top" alt="...">
+                <img src="@/assets/stock-vector-no-image-available-icon-template-for-no-image-or-picture-coming-soon-vector-illustration-isolated-1036735678.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">{{item.name}}</h5>
                     <p class="card-text">{{item.price}}</p>

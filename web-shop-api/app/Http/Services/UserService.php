@@ -1,9 +1,10 @@
 <?php
-namespace App\Services;
+namespace App\Http\Services;
 
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class UserService
@@ -12,10 +13,11 @@ class UserService
     {
         if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
             $user = Auth::user();
-            $success['access_token'] = $user->createToken('MyApp')->accessToken;
-            return $success;
+            $resp['access_token'] = $user->createToken('MyApp')->accessToken;
+            return ResponseService::make(true, 'Successfully logged in', $resp);
         }
-        return abort(403, 'Wrong credentials');
+        abort(403, 'Wrong credentials');
+        return ResponseService::make(false, 'Wrong credentials');
     }
 
     public static function register(Request $request)
@@ -25,18 +27,31 @@ class UserService
             'password' => 'required',
         ]);
         if ($validator->fails()) {
-            return $validator->errors();
+            abort(400, $validator->errors());
+
         }
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
-        $success['access_token'] = $user->createToken('MyApp')->accessToken;
-        return $success;
+        return ResponseService::make(true, 'Registered successfully', ['access_token' => $user->createToken('MyApp')->accessToken]);
     }
 
-    public static function get($id = null) {
+    public static function get($id = null)
+    {
         if ($id == null) {
             return Auth::user();
         }
+    }
+
+    public static function changePassword($old, $new)
+    {
+        $user = self::get();
+        if (Hash::check($old, $user->password)) {
+            $user->password = Hash::make($new);
+            if ($user->save()) {
+                return ResponseService::make(true, 'Password changed');
+            }
+        }
+        abort(400, 'Passwords do not match');
     }
 }

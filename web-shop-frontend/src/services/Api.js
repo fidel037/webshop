@@ -1,6 +1,7 @@
 import axios from "axios"
 import store from './../store/store'
 const ApiService = {
+    _200interceptor: null,
     _401interceptor: null,
     _403interceptor: null,
     _404interceptor: null,
@@ -15,7 +16,7 @@ const ApiService = {
         if (store.getters.getToken != null) {
             axios.defaults.headers.common["Authorization"] = 'Bearer '+store.getters.getToken.access_token
         }
-        axios.defaults.headers.common["Access-Control-Allow-Origin"] = 'http://localhost:8800'
+        axios.defaults.headers.common["Access-Control-Allow-Origin"] = 'http://0.0.0.0:8800'
 
     },
     get(url) {
@@ -28,6 +29,11 @@ const ApiService = {
         url = this.rootUrl + url
         return axios.post(url, data)
     },
+    patch(url, data) {
+        this.init()
+        url = this.rootUrl + url
+        return axios.patch(url, data)
+    },
     delete(url, data) {
         this.init()
         url = this.rootUrl + url
@@ -36,10 +42,14 @@ const ApiService = {
     mountInterceptors() {
         axios.interceptors.response.use(
             (response) => {
+                store.dispatch("setSuccess",response.data.message)
                 return response
             },
-            async (error) => {
-                store.dispatch("setError", error.response.data.message)
+            (error) => {
+                if (error.response !== undefined) {
+                    store.dispatch("setError", error.response.data.message)
+                }
+                return new Promise(() => {});
             }
         )
     },

@@ -13,7 +13,7 @@ return [
      */
 
     'supportsCredentials' => false,
-    'allowedOrigins' => ['http://localhost:8888', 'http://0.0.0.0:8888'],
+    'allowedOrigins' => ['http://0.0.0.0:8888'],
     'allowedOriginsPatterns' => [],
     'allowedHeaders' => ['*'],
     'allowedMethods' => ['*'],

@@ -24,7 +24,12 @@ const user_store = {
             state.error = value
         },
         setSuccess (state, value) {
-            state.success = value
+            if (value != '') {
+                state.success = value
+            }
+            if (value === false) {
+                state.success = false
+            }
         },
         setCart (state, item) {
             state.cart.total += parseFloat(item.price)

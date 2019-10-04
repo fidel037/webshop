@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Services\OrderService;
-use App\Order;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -12,12 +11,12 @@ class OrderController extends Controller
     public function postItem(Request $request)
     {
         $params = $request->all();
-        return ['success' => OrderService::addItem($params['item_id'])];
+        return OrderService::addItem($params['item_id']);
     }
 
     public function removeItem($itemId)
     {
-        return ['success' => OrderService::removeItem($itemId)];
+        return OrderService::removeItem($itemId);
     }
 
     public function getOrder()
@@ -27,7 +26,7 @@ class OrderController extends Controller
 
     public function pay()
     {
-        return ['success' => OrderService::pay()];
+        return OrderService::pay();
     }
 
     public function orderHistory()

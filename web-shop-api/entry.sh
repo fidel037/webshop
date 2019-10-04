@@ -10,4 +10,7 @@ php -r "unlink('composer-setup.php');"
 cd /var/www/html/web-shop-api
 composer install
 php /var/www/html/web-shop-api/artisan migrate --force
+chmod 777 -R /var/www/html/web-shop-api/storage
+php artisan passport:install
+php artisan db:seed --class items
 tail -f /dev/null

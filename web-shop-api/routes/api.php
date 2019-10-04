@@ -13,6 +13,7 @@
 
 Route::group(['middleware' => ['auth:api']], function () {
     Route::get('user/{id?}', 'UserController@get');
+    Route::patch('password', 'UserController@changePassword');
     Route::post('items', 'ItemController@postSearch');
     Route::post('pay', 'OrderController@pay');
     Route::post('basket', 'OrderController@postItem');

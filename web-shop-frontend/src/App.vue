@@ -7,6 +7,7 @@
                 <li class="nav-item" v-if="this.getIsLoggedIn()"><router-link class="nav-link" to="/">Pocetna</router-link></li>
                 <li class="nav-item" v-if="this.getIsLoggedIn()"><router-link class="nav-link" to="/cart">Korpa({{getCartInfo().noItems}} - {{getCartInfo().total.toFixed(2)}})</router-link></li>
                 <li class="nav-item" v-if="this.getIsLoggedIn()"><router-link class="nav-link" to="/orders">Narudzbine</router-link></li>
+                <li class="nav-item" v-if="this.getIsLoggedIn()"><router-link class="nav-link" to="/password">Password</router-link></li>
                 <li class="nav-item" v-if="this.getIsLoggedIn()"><a class="nav-link" v-on:click="logout()">Logout</a></li>
             </ul>
         </nav>

@@ -5,6 +5,7 @@ import Register from './components/Register'
 import ItemList from './components/ItemList'
 import Basket from './components/Basket'
 import Orders from './components/Orders'
+import Password from './components/Password'
 import store from './store/store'
 const routes = [
     {
@@ -49,12 +50,21 @@ const routes = [
             requiresAuth: true,
         }
     },
+    {
+        path: '/password',
+        component: Password,
+        meta: {
+            requiresAuth: true,
+        }
+    },
 ]
 const router = new VueRouter({
     routes
 })
 router.beforeEach((to, from, next) => {
-    store.dispatch('setSuccess', false)
+    if (from.path !== '/password') {
+        store.dispatch('setSuccess', false)
+    }
     store.dispatch('setError', false)
 
     if (to.matched.some(record => record.meta.requiresAuth)) {

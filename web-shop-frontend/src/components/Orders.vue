@@ -1,17 +1,39 @@
 <template>
     <div>
         <h1>Orders</h1>
-        <div v-for="(order,index) in allOrders" v-bind:key="index" class="row" v-on:click="info(order)">
-            <div class="col-4">
-                {{index}}
+
+        <div class="row">
+            <div class="col-6">
+                <table class="table table-dark">
+                    <tr>
+                        <th>Broj Narudzbine</th>
+                    </tr>
+                    <tbody>
+                        <tr v-for="(order,index) in allOrders" v-bind:key="index" v-on:click="info(order)">
+                            {{index}}
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-6">
+                <table class="table table-dark">
+                    <tr>
+                        <th>Naziv proizvoda</th>
+                        <th>Cena</th>
+                    </tr>
+                    <tbody v-if="(orderInfo)">
+                        <tr v-for="(oInfo,oindex) in orderInfo" v-bind:key="oindex">
+                            <td>{{oInfo.item.name}}</td>
+                            <td>{{oInfo.item.price}}</td>
+                        </tr>
+                        <tr>
+                            <td>Ukupno: {{total}}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
-        <div v-if="(orderInfo)">
-            <div v-for="(oInfo,oindex) in orderInfo" v-bind:key="oindex">
-                    {{oInfo.item.name}}
-                    {{oInfo.item.price}}
-            </div>
-        </div>
+
     </div>
 </template>
 
@@ -33,6 +55,15 @@ export default {
             },
             set(v) {
                 this.orders = v
+            }
+        },
+        total: {
+            get() {
+                let total = 0;
+                for (let index = 0; index < this.orderInfo.length; index++) {
+                    total += parseFloat(this.orderInfo[index].item.price)
+                }
+                return parseFloat(total).toFixed(2)
             }
         }
     },
